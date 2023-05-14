@@ -80,7 +80,7 @@ class Predictor(BasePredictor):
 
         # Determine the fill color for the logo if not specified
         if fill is None:
-            fill = "black" if ImageStat.Stat(composition).mean[0] > 127 else "white"
+            fill = "black" if ImageStat.Stat(composition).mean[0] > 192 else "white"
 
         # Generate the logo image
         logo_image = Logo(fill=fill).image(size=(dimension, dimension), scale=scale)
