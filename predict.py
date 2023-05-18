@@ -30,7 +30,7 @@ class Logo:
     def svg(self) -> str:
         return f"""
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                    <g fill="{self.fill}">
+                    <g fill="{self.fill}" shape-rendering="crispEdges">
                         <polygon points="16 6.85 16 8.67 9.67 8.67 9.67 16 7.64 16 7.64 6.85 16 6.85" />
                         <polygon points="16 3.43 16 5.24 5.85 5.24 5.85 16 3.82 16 3.82 3.43 16 3.43" />
                         <polygon points="16 0 16 1.81 2.03 1.81 2.03 16 0 16 0 0 16 0" />
