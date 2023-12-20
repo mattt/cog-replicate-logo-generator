@@ -1,9 +1,8 @@
 import pytest
-from predict import Predictor
-from cog import Path
-
-from pathlib import PosixPath
+import cog
 from PIL import Image
+
+from predict import Predictor
 
 
 @pytest.mark.parametrize("dimension", [64, 128, 256, 512])
@@ -12,22 +11,16 @@ def test_predict(dimension, fill, vibecheck):
     predictor = Predictor()
     predictor.setup()
 
-    input = {
-        "background": None,
-        "fill": fill,
-        "scale": 0.5,
-        "dimension": dimension,
-        "format": "png",
-    }
-    output: PosixPath = predictor.predict(**input)
+    with vibecheck(predictor) as predict:
+        output = predict(
+            background=None, fill=fill, scale=0.5, dimension=dimension, format="png"
+        )
 
-    assert isinstance(output, Path)
-    assert output.name == "output.png"
+        assert isinstance(output, cog.Path)
+        assert output.name == "output.png"
 
-    image = Image.open(output)
-    assert image.width == dimension
-    assert image.height == dimension
+        image = Image.open(output)
+        assert image.width == dimension
+        assert image.height == dimension
 
-    assert output.exists()
-
-    vibecheck.record(input, output)
+        assert output.exists()
