@@ -8,7 +8,7 @@ from PIL import Image
 
 @pytest.mark.parametrize("dimension", [64, 128, 256, 512])
 @pytest.mark.parametrize("fill", ["black", "white"])
-def test_predict(dimension, fill):
+def test_predict(dimension, fill, vibecheck):
     predictor = Predictor()
     predictor.setup()
 
@@ -29,3 +29,5 @@ def test_predict(dimension, fill):
     assert image.height == dimension
 
     assert output.exists()
+
+    vibecheck.record(input, output)
