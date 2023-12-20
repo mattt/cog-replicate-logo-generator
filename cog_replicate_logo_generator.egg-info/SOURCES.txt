@@ -1,0 +1,9 @@
+README.md
+predict.py
+pyproject.toml
+cog_replicate_logo_generator.egg-info/PKG-INFO
+cog_replicate_logo_generator.egg-info/SOURCES.txt
+cog_replicate_logo_generator.egg-info/dependency_links.txt
+cog_replicate_logo_generator.egg-info/requires.txt
+cog_replicate_logo_generator.egg-info/top_level.txt
+tests/test_predict.py

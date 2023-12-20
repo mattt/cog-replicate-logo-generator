@@ -1,0 +1,9 @@
+pillow==9.5.0
+cairosvg==2.7.0
+
+[dev]
+pylint
+pyright
+pytest
+pytest-asyncio
+ruff>=0.1.3
