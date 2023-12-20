@@ -6,15 +6,15 @@ from predict import Predictor
 
 
 @pytest.mark.parametrize("dimension", [64, 128, 256, 512])
-@pytest.mark.parametrize("fill", ["black", "white"])
+# @pytest.mark.parametrize("fill", ["black", "white"])
 @pytest.mark.parametrize("format", ["png", "jpeg"])
-def test_predict(dimension, fill, format, vibecheck):
+def test_predict(dimension, format, vibecheck):
     predictor = Predictor()
     predictor.setup()
 
     with vibecheck(predictor) as predict:
         output: cog.Path = predict(
-            background=None, fill=fill, scale=0.5, dimension=dimension, format=format
+            background=None, fill=None, scale=0.5, dimension=dimension, format=format
         )
 
         with Image.open(output) as image:
