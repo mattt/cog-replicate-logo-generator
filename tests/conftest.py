@@ -29,15 +29,23 @@ class Vibecheck:
         print("Output: ", output)
 
         if isinstance(output, cog.Path):
-            # Create a checksum for the file content
             contents = output.read_bytes()
             checksum = hashlib.md5(contents, usedforsecurity=False).hexdigest()
-            unique_file = f"/tmp/{checksum}_{output.name}"
+            basename, extension = os.path.splitext(output.name)
+            unique_file = f"/tmp/{basename}_{checksum[:8]}{extension}"
             with open(unique_file, "wb") as f:
                 f.write(contents)
             output = cog.Path(unique_file)
 
-        self.records.append({"input": kwargs, "output": output})
+        self.records.append(
+            {
+                "input": {
+                    k: str(v) if isinstance(v, cog.Path) else v
+                    for k, v in kwargs.items()
+                },
+                "output": output,
+            }
+        )
         return output
 
 
