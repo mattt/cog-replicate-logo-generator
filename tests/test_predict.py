@@ -1,17 +1,31 @@
+import pytest
 from predict import Predictor
+from cog import Path
+
+from pathlib import PosixPath
+from PIL import Image
 
 
-def test_predict():
+@pytest.mark.parametrize("dimension", [64, 128, 256, 512])
+@pytest.mark.parametrize("fill", ["black", "white"])
+def test_predict(dimension, fill):
     predictor = Predictor()
     predictor.setup()
 
     input = {
         "background": None,
-        "fill": "black",
+        "fill": fill,
         "scale": 0.5,
-        "dimension": 64,
+        "dimension": dimension,
         "format": "png",
     }
-    output = predictor.predict(**input)
+    output: PosixPath = predictor.predict(**input)
+
+    assert isinstance(output, Path)
+    assert output.name == "output.png"
+
+    image = Image.open(output)
+    assert image.width == dimension
+    assert image.height == dimension
 
     assert output.exists()
