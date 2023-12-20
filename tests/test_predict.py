@@ -7,20 +7,22 @@ from predict import Predictor
 
 @pytest.mark.parametrize("dimension", [64, 128, 256, 512])
 @pytest.mark.parametrize("fill", ["black", "white"])
-def test_predict(dimension, fill, vibecheck):
+@pytest.mark.parametrize("format", ["png", "jpeg"])
+def test_predict(dimension, fill, format, vibecheck):
     predictor = Predictor()
     predictor.setup()
 
     with vibecheck(predictor) as predict:
-        output = predict(
-            background=None, fill=fill, scale=0.5, dimension=dimension, format="png"
+        output: cog.Path = predict(
+            background=None, fill=fill, scale=0.5, dimension=dimension, format=format
         )
 
-        assert isinstance(output, cog.Path)
-        assert output.name == "output.png"
+        with Image.open(output) as image:
+            try:
+                image.verify()
+            except Exception as e:
+                assert False, f"Verification raised an exception: {e}"
 
-        image = Image.open(output)
-        assert image.width == dimension
-        assert image.height == dimension
-
-        assert output.exists()
+            assert image.format == format.upper()
+            assert image.width == dimension
+            assert image.height == dimension
