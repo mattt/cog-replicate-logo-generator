@@ -7,7 +7,7 @@ name = "cog-replicate-logo-generator"
 version = "1.0.0"
 description = ""
 requires-python = ">=3.8"
-dependencies = ["pillow==9.5.0", "cairosvg==2.7.0"]
+dependencies = ["cog", "pillow==9.5.0", "cairosvg==2.7.0"]
 optional-dependencies = { dev = [
     "pylint",
     "pyright",
