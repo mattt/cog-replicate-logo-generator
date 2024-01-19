@@ -13,6 +13,7 @@ COLORS = {
     "mediumpurple": (147, 112, 219),
     "lightseagreen": (32, 178, 170),
     "deepskyblue": (0, 191, 255),
+    "darkslateblue": (72, 61, 139),
 }
 
 
